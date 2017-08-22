@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/srlv_screen_two_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F1F1"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="@dimen/padding_15"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:text="Loan Amount"
+                    android:textColor="#FF4B4949"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_seek_bar_screen_two_loan_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/padding_15"
+                    android:background="#F1F1F1">
+
+                    <SeekBar
+                        android:id="@+id/seekbar_screen_two_loan_amount"
+                        style="@android:style/Widget.Material.Light.SeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:min="100"
+                        android:max="5000"
+                        android:layout_marginLeft="@dimen/padding_20"
+                        android:layout_marginRight="@dimen/padding_20"
+                       />
+
+                    <TextView
+                        android:id="@+id/txt_start_limit_loan_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/seekbar_screen_two_loan_amount"
+                        android:layout_marginTop="@dimen/padding_5"
+                        android:text="100 p" />
+
+
+                    <TextView
+                        android:id="@+id/txt_end_limit_loan_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/seekbar_screen_two_loan_amount"
+                        android:layout_marginTop="@dimen/padding_5"
+                        android:text="5000 p" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F1F1F1"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="@dimen/padding_15"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:text="Tenure (years)"
+                    android:textColor="#FF4B4949"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_seek_bar_screen_two_tenure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/padding_15"
+                    android:background="#F1F1F1">
+
+                    <SeekBar
+                        android:id="@+id/seekbar_screen_two_tenure"
+                        style="@android:style/Widget.Material.Light.SeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:min="1"
+                        android:max="10"
+                        android:layout_marginLeft="@dimen/padding_20"
+                        android:layout_marginRight="@dimen/padding_20"
+                         />
+
+                    <TextView
+                        android:id="@+id/txt_start_limit_tenure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/seekbar_screen_two_tenure"
+                        android:layout_marginTop="@dimen/padding_5"
+                        android:text="1 year" />
+
+
+                    <TextView
+                        android:id="@+id/txt_end_limit_tenure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/seekbar_screen_two_tenure"
+                        android:layout_marginTop="@dimen/padding_5"
+                        android:text="10 year" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_marginRight="@dimen/padding_10"
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="#c7c7c7"
+                android:padding="@dimen/padding_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_10"
+                    android:gravity="left"
+                    android:text="Your Customized Plan"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_marginRight="@dimen/padding_10"
+                android:background="#F1F1F1"
+                android:padding="@dimen/padding_10">
+
+                <TextView
+                    android:id="@+id/txt_screen_two_loan_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_10"
+                    android:layout_weight="0.5"
+                    android:gravity="left"
+                    android:text="Loan Amount : 1000 p"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/txt_screen_two_tenure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_10"
+                    android:layout_weight="0.5"
+                    android:gravity="right"
+                    android:text="Tenure : 2 years"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_marginRight="@dimen/padding_10"
+                android:background="#c7c7c7"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/txt_screen_two_EMI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_10"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="EMI 96.96 p"
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_screen_two_interest_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_10"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Interest Rate: 3.2%"
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/txt_screen_two_EMI2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_10"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="EMI 96.96 p"
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_screen_two_interest_rate2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_10"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Interest Rate: 3.2%"
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_screen_two_continue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_20"
+                    android:background="#999999"
+                    android:padding="@dimen/edttxt_padding"
+                    android:text="CONTINUE" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_screen_five_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_15"
+                android:text="copyrights reserved"
+                android:textColor="#E9E9E9" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

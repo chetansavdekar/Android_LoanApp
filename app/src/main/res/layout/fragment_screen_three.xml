@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/srlv_screen_three_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_15"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/drawable_info_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Info"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/drawable_address_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Address"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/drawable_employer_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Employer"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_screen_three_info_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_15"
+                android:background="#F1F1F1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="FIRST NAME"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="LAST NAME"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="MOBILE"
+                        android:inputType="phone"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="EMAIL"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                   <!-- <DatePicker
+                        android:id="@+id/date_picker_screen_three_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="DATE OF BIRTH"
+                        android:inputType="text|date"
+                        android:padding="@dimen/edttxt_padding" >
+
+                    </DatePicker>-->
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="DATE OF BIRTH"
+                        android:inputType="text|date"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="Gender"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_three_gender"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_marrital_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="Marital Status"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_three_marital_status"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_purpose_of_loan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="Purpose Of Loan"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_three_purpose_of_loan"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_no_of_dependents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="No Of Dependents"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_three_no_of_dependents"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="NO OF DEPENDENTS"
+                        android:inputType="number"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_three_national_insurance_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_national_insurance_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="NATIONAL INS NO"
+                        android:inputType="text"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <!--<LinearLayout
+                    android:id="@+id/ll_screen_three_customer_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_three_customer_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edttxt_margin_left"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="CUSTOMER CATEGORY"
+                        android:inputType="text"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>-->
+
+                <Button
+                    android:id="@+id/btn_screen_three_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_20"
+                    android:background="#999999"
+                    android:padding="@dimen/edttxt_padding"
+                    android:text="NEXT" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_screen_three_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_15"
+                android:text="copyrights reserved"
+                android:textColor="#E9E9E9" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

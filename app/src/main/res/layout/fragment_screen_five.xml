@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/srlv_screen_five_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_15"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/drawable_info_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Info" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/drawable_address_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Address"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/drawable_employer_tab_background"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_15"
+                    android:text="Employer"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_screen_five_employer_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_15"
+                android:background="#F1F1F1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="EMPLOYER NAME"
+                        android:inputType="text"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_address1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_address1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="ADDRESS1"
+                        android:inputType="textPostalAddress"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_address2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_address2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="ADDRESS2"
+                        android:inputType="textPostalAddress"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="CITY"
+                        android:inputType="textPostalAddress"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_pincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="PINCODE"
+                        android:inputType="number"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+               <!-- <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="COUNTRY"
+                        android:inputType="text"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>-->
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="PHONE"
+                        android:inputType="phone"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_designation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_designation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="DESIGNATION"
+                        android:inputType="text"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_salary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <EditText
+                        android:id="@+id/edt_txt_screen_five_employer_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:hint="SALARY"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="Region"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_five_region"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_screen_five_employer_tenure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:background="#F1F1F1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/detail_row_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/edttxt_padding"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/main_header_text_size"
+                        android:text="Tenure with Employer"
+                        />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_screen_five_tenure"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/drawable_rectangle"
+                        android:padding="@dimen/edttxt_padding" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_screen_five_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_20"
+                    android:background="#999999"
+                    android:padding="@dimen/edttxt_padding"
+                    android:text="SUBMIT" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_screen_five_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_15"
+                android:text="copyrights reserved"
+                android:textColor="#E9E9E9" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

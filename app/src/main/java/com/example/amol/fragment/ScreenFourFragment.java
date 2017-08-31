@@ -19,6 +19,11 @@ import com.example.amol.loanquote.APIResponseListener;
 import com.example.amol.loanquote.AppController;
 import com.example.amol.loanquote.FragmentUtils;
 import com.example.amol.loanquote.R;
+import com.example.amol.util.HelperStatic;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,11 +172,37 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         //if(validateFields()) {
-        setUserModelValues();
-            FragmentUtils.getInstance()
-                    .addFragment(ScreenFiveFragment.newInstance(),
-                            getActivity().getSupportFragmentManager(), Boolean.TRUE);
+
         //}
+
+
+        try {
+            setUserModelValues();
+
+
+        /*Map<String, String> map = new HashMap<>();
+        map.put("loanID", "" + loanType);
+        map.put("loanAmount", userModel.getLoanAmount());
+        map.put("city", userModel.getLocation());
+        map.put("salary", userModel.getMonthlyIncome());
+        map.put("employerName", userModel.getOrganisation());*/
+            Gson gson = new Gson();
+            String object = gson.toJson(userModel);
+
+            JSONObject jsonObject = new JSONObject(object);
+            String url = "";
+           // if(userModel.isQuoteExisting()){
+            //    url = "http://loanappapi.azurewebsites.net/api/applicant/put";
+           // } else {
+                url = "http://loanappapi.azurewebsites.net/api/applicant/post";
+            //}
+
+            HelperStatic.jsonObjectRequest(getActivity(), 1, url, jsonObject, true, this, true);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean validateFields() {
@@ -200,7 +231,9 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onResponse(String response) {
-
+        FragmentUtils.getInstance()
+                .addFragment(ScreenFiveFragment.newInstance(),
+                        getActivity().getSupportFragmentManager(), Boolean.TRUE);
     }
 
     @Override

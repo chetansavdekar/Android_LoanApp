@@ -58,7 +58,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_screen_one_header_car_loan"
+                    android:id="@+id/ll_screen_one_header_home_loan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -66,21 +66,21 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/img_screen_one_header_car_loan"
+                        android:id="@+id/img_screen_one_header_home_loan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/vector_drawable_hexagon_loan_deselected"
                         android:padding="@dimen/padding_20"
-                        android:src="@drawable/car" />
+                        android:src="@drawable/homenew" />
 
                     <TextView
-                        android:id="@+id/txt_screen_one_header_car_loan"
+                        android:id="@+id/txt_screen_one_header_home_loan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/padding_15"
-                        android:text="CAR LOAN" />
+                        android:text="HOME LOAN" />
 
 
                 </LinearLayout>

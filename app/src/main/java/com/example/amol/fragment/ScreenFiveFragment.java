@@ -1,6 +1,5 @@
 package com.example.amol.fragment;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -30,7 +29,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amol13704 on 8/10/2017.
@@ -77,6 +78,25 @@ public class ScreenFiveFragment extends Fragment implements View.OnClickListener
         initializeAllViews(view);
         addClickListenerToViews();
         return view;
+    }
+
+    private void fetchApplicantData() {
+
+        //http://loanappapi.azurewebsites.net/api/applicant/get?quoteId=2
+        Map<String, String> map = new HashMap<>();
+
+        HelperStatic.jsonObjectRequest(getActivity(), 0, "http://loanappapi.azurewebsites.net/api/loanapplication/get?loanapplicationid=1" + userModel.getQuoteID(),
+                new JSONObject(map), true, new APIResponseListener() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, false);
     }
 
     private void getUserModel() {
@@ -225,7 +245,7 @@ public class ScreenFiveFragment extends Fragment implements View.OnClickListener
                 Log.d("JSON", " " + object);
 
                 HelperStatic.jsonObjectRequest(getActivity(), 1,
-                        "http://loanappapi.azurewebsites.net/api/applicant/post", new JSONObject(object), true, this, true);
+                        "http://loanappapi.azurewebsites.net/api/loanapplication/post", new JSONObject(object), true, this, true);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

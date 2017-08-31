@@ -1,9 +1,12 @@
 package com.example.amol.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +46,10 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
     private EditText editTextLoan;
     private ImageView imgExistingQuoteArrow;
     private LinearLayout llPersonalLoan;
-    private LinearLayout llCarLoan;
+    private LinearLayout llhomeLoan;
     private ImageView imgPersonalLoan;
-    private ImageView imgCarLoan;
+    private ImageView imghomeLoan;
     private UserModel userModel;
-    private boolean responseObject = true;
 
     public ScreenOneFragment() {
         // Required empty public constructor
@@ -74,7 +76,7 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
 
     private void addClickListenerToViews() {
         btnGetQuote.setOnClickListener(this);
-        llCarLoan.setOnClickListener(this);
+        llhomeLoan.setOnClickListener(this);
         llPersonalLoan.setOnClickListener(this);
         imgExistingQuoteArrow.setOnClickListener(this);
     }
@@ -88,10 +90,10 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
         editTextLocation = view.findViewById(R.id.edt_txt_screen_one_location);
         editTextPound = view.findViewById(R.id.edt_txt_screen_one_pound);
         editTextOrganizationBuilding = view.findViewById(R.id.edt_txt_screen_one_organization_building);
-        llCarLoan = view.findViewById(R.id.ll_screen_one_header_car_loan);
+        llhomeLoan = view.findViewById(R.id.ll_screen_one_header_home_loan);
         llPersonalLoan = view.findViewById(R.id.ll_screen_one_header_personal_loan);
         imgPersonalLoan = view.findViewById(R.id.img_screen_one_header_personal_loan);
-        imgCarLoan = view.findViewById(R.id.img_screen_one_header_car_loan);
+        imghomeLoan = view.findViewById(R.id.img_screen_one_header_home_loan);
         imgExistingQuoteArrow = view.findViewById(R.id.img_screen_one_exisiting_quote_id_arrow);
     }
 
@@ -112,8 +114,8 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
                 handleBtnGetQuoteClick();
                 break;
 
-            case R.id.ll_screen_one_header_car_loan:
-                handleCarLoanClick();
+            case R.id.ll_screen_one_header_home_loan:
+                handlehomeLoanClick();
                 break;
 
             case R.id.ll_screen_one_header_personal_loan:
@@ -130,25 +132,71 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
         //navigate to the next screen with the quote
         //Get : http://loanappapi.azurewebsites.net/api/quote/get?quoteid=2
         //08-04 20:20:14.765 16732-16732/com.example.amol.loanquote E/Nilesh: onResponse: {"quoteID":86,"loanID":2,"loanAmount":350000,"interestRate":3.2,"monthlyEMI":6766.67,"employerName":"HDFC","salary":3500,"city":"London"}
-        responseObject = false;
         Map<String, String> map = new HashMap<>();
         String quoteId = editTextExistingQuote.getText().toString();
         HelperStatic.jsonObjectRequest(getActivity(), 0, "http://loanappapi.azurewebsites.net/api/quote/get?quoteid=" + quoteId,
-                new JSONObject(map), true, this, false);
+                new JSONObject(map), true, new APIResponseListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        handleExisitingQuoteResponse(response);
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, false);
+    }
+
+    private void handleExisitingQuoteResponse(String response) {
+        try {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("showDialog" , false);
+            ScreenTwoFragment screenTwoFragment = ScreenTwoFragment.newInstance();
+            screenTwoFragment.setArguments(bundle);
+           JSONArray respArray = new JSONArray(response);
+            if (respArray != null && respArray.length() > 0) {
+                JSONObject resp = respArray.getJSONObject(0);
+                UserModel userModel = getUserModel();
+                if (userModel == null)
+                    userModel = new UserModel();
+                userModel.setQuoteID(resp.getInt("quoteID"));
+                userModel.setLoanType(resp.getInt("loanID"));
+                userModel.setInterestRate(resp.getDouble("interestRate"));
+                userModel.setMonthlyEMI(resp.getDouble("monthlyEMI"));
+                userModel.setLoanAmount("" + resp.getLong("loanAmount"));
+                userModel.setMonthlyIncome("" + resp.getLong("salary"));
+                userModel.setOrganisation("" + resp.getString("employerName"));
+                userModel.setLocation("" + resp.getString("city"));
+                userModel.setQuoteExisting(true);
+                editTextLoan.setText("" + resp.getLong("loanAmount"));
+                editTextOrganizationBuilding.setText("" + resp.getString("employerName"));
+                editTextPound.setText("" + resp.getLong("salary"));
+                editTextLocation.setText(resp.getString("city"));
+                AppController.getInstance().setUserModel(userModel);
+                FragmentUtils.getInstance()
+                        .addFragment(screenTwoFragment,
+                                getActivity().getSupportFragmentManager(), Boolean.TRUE);
+            } else {
+                showAlertMessage("Incorrect quote");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handlePersonalLoanClick() {
         loanType =  1;
         imgPersonalLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_selected);
-        imgCarLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_deselected);
+        imghomeLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_deselected);
         //Toast.makeText(getContext(), "PersonalLoan clicked loanType = " + loanType, Toast.LENGTH_LONG).show();
     }
 
-    private void handleCarLoanClick() {
+    private void handlehomeLoanClick() {
         loanType = 2;
-        imgCarLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_selected);
+        imghomeLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_selected);
         imgPersonalLoan.setBackgroundResource(R.drawable.vector_drawable_hexagon_loan_deselected);
-        //Toast.makeText(getContext(), "car loan clicked loanType = " + loanType, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "home loan clicked loanType = " + loanType, Toast.LENGTH_LONG).show();
     }
 
     private void handleBtnGetQuoteClick() {
@@ -208,7 +256,6 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
     private void callAPI() {
 
         //Post: https://loanappapi.azurewebsites.net/api/quote/post
-        responseObject = true;
 
        // onResponse: {"quoteID":116,"loanID":1,"loanAmount":500000,
             //    "interestRate":3.2,"monthlyEMI":9666.67,"employerName":"mastek","salary":50000,"city":"London"}
@@ -229,44 +276,47 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
     public void onResponse(String response) {
         //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
         try {
-        if(responseObject){
-
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("showDialog" , true);
+            ScreenTwoFragment screenTwoFragment = ScreenTwoFragment.newInstance();
+            screenTwoFragment.setArguments(bundle);
                 JSONObject resp = new JSONObject(response);
+            if (resp != null && resp.length() > 0) {
                 UserModel userModel = getUserModel();
                 userModel.setQuoteID(resp.getInt("quoteID"));
                 userModel.setLoanType(resp.getInt("loanID"));
                 userModel.setInterestRate(resp.getDouble("interestRate"));
                 userModel.setMonthlyEMI(resp.getDouble("monthlyEMI"));
+                userModel.setQuoteExisting(false);
                 AppController.getInstance().setUserModel(userModel);
                 FragmentUtils.getInstance()
-                        .addFragment(ScreenTwoFragment.newInstance(),
+                        .addFragment(screenTwoFragment,
                                 getActivity().getSupportFragmentManager(), Boolean.TRUE);
 
-
-        }else {
-            JSONArray respArray = new JSONArray(response);
-            JSONObject resp = respArray.getJSONObject(0);
-            UserModel userModel = getUserModel();
-            if(userModel == null)
-                userModel = new UserModel();
-            userModel.setQuoteID(resp.getInt("quoteID"));
-            userModel.setLoanType(resp.getInt("loanID"));
-            userModel.setInterestRate(resp.getDouble("interestRate"));
-            userModel.setMonthlyEMI(resp.getDouble("monthlyEMI"));
-            userModel.setLoanAmount("" + resp.getLong("loanAmount"));
-            userModel.setMonthlyIncome("" + resp.getLong("salary"));
-            userModel.setOrganisation("" + resp.getString("employerName"));
-            userModel.setLocation("" + resp.getString("city"));
-
-            AppController.getInstance().setUserModel(userModel);
-            FragmentUtils.getInstance()
-                    .addFragment(ScreenTwoFragment.newInstance(),
-                            getActivity().getSupportFragmentManager(), Boolean.TRUE);
-        }
+            } else {
+                showAlertMessage("Sorry no response");
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showAlertMessage(String s) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getActivity());
+        }
+        builder.setMessage(s)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+
     }
 
     @Override

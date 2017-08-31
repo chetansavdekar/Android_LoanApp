@@ -35,6 +35,16 @@ public class UserModel extends BaseModel implements Serializable {
     private double interestRate = 0.0;
     private double monthlyEMI = 0.0;
 
+    public boolean isQuoteExisting() {
+        return isQuoteExisting;
+    }
+
+    public void setQuoteExisting(boolean quoteExisting) {
+        isQuoteExisting = quoteExisting;
+    }
+
+    private boolean isQuoteExisting = false;
+
 
     private List<UserAddressModel> applicantAddresses;
     private List<UserEmployerModel> applicantEmployers;

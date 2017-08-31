@@ -1,8 +1,11 @@
 package com.example.amol.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,7 @@ public class ScreenTwoFragment extends Fragment implements View.OnClickListener,
     private Button btnContinue;
 
     private UserModel userModel;
+    private boolean showDialog;
 
 
     public ScreenTwoFragment() {
@@ -67,15 +71,32 @@ public class ScreenTwoFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_screen_two, container, false);
+        showDialog = getArguments().getBoolean("showDialog");
         initializeAllViews(view);
         addClickListenerToViews();
+        if (showDialog)
+            getUserModel();
         setUserModelValues();
         return view;
     }
 
     private void getUserModel() {
         userModel = AppController.getInstance().getUserModel();
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getActivity());
+        }
+        builder.setMessage("Your Quote is " + userModel.getQuoteID())
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
     }
 
     private void setUserModelValues() {

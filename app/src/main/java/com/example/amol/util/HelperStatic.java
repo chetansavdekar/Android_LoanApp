@@ -32,8 +32,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
-
 public class HelperStatic {
 
     private static String tag = "Nilesh";
@@ -48,8 +46,8 @@ public class HelperStatic {
     public static final String CHANNEL = "channel";
     public static final String RESPONSE_MESSAGEID = "messageId";
     public static final String RESPONSE_MESSAGE = "message";
-    public static final int CALL_NOTIFICATION_ID=10;
-    public static String TAG="Nilesh";
+    public static final int CALL_NOTIFICATION_ID = 10;
+    public static String TAG = "Nilesh";
 
 
     private HelperStatic() {
@@ -73,10 +71,9 @@ public class HelperStatic {
             }
 
 
-
-            if(isJSONObject){
+            if (isJSONObject) {
                 JsonObjectRequest
-                 request = new JsonObjectRequest(getPost, url, jsonObject,
+                        request = new JsonObjectRequest(getPost, url, jsonObject,
                         new JSONObjectResponseListener(showProgress,
                                 dialog, listener), new Response.ErrorListener() {
                     @Override
@@ -88,13 +85,11 @@ public class HelperStatic {
                         listener.onErrorResponse(error);
                         NetworkResponse errorRes = error.networkResponse;
                         String stringData;
-                        try{
+                        try {
                             stringData = new String(errorRes.data, "UTF-8");
 
-                        }
-                        catch (Exception e)
-                        {
-                            Log.e("Nilesh", "onErrorResponse: " );
+                        } catch (Exception e) {
+                            Log.e("Nilesh", "onErrorResponse: ");
                         }
 
                     }
@@ -129,13 +124,11 @@ public class HelperStatic {
                         listener.onErrorResponse(error);
                         NetworkResponse errorRes = error.networkResponse;
                         String stringData;
-                        try{
+                        try {
                             stringData = new String(errorRes.data, "UTF-8");
 
-                        }
-                        catch (Exception e)
-                        {
-                            Log.e("Nilesh", "onErrorResponse: " );
+                        } catch (Exception e) {
+                            Log.e("Nilesh", "onErrorResponse: ");
                         }
 
                     }
@@ -156,8 +149,6 @@ public class HelperStatic {
                 AppController.getInstance().addToRequestQueue(request, "request");
                 Log.i("Request ::", request.toString());
             }
-
-
 
 
         } else {
@@ -277,7 +268,7 @@ public class HelperStatic {
         return tag;
     }
 
-    public  static class UlTagHandler implements Html.TagHandler {
+    public static class UlTagHandler implements Html.TagHandler {
         boolean first = true;
         String parent = null;
         int index = 1;
@@ -326,57 +317,58 @@ public class HelperStatic {
     }
 
 
-
 }
 
-  class JSONObjectResponseListener implements Response.Listener<JSONObject> {
+class JSONObjectResponseListener implements Response.Listener<JSONObject> {
 
-      private String tag = "Nilesh";
-      private ProgressDialog dialog;
-      private APIResponseListener listener;
-      private boolean showProgress;
-
-
-      public JSONObjectResponseListener(boolean showProgress, ProgressDialog dialog, APIResponseListener listener){
-          this.showProgress = showProgress;
-          this.dialog = dialog;
-          this.listener = listener;
-      }
-
-      @Override
-      public void onResponse(JSONObject response) {
-          Log.e(tag, "onResponse: " + response.toString());
-          if (showProgress && dialog.isShowing()) {
-              dialog.dismiss();
-          }
-          listener.onResponse(response.toString());
-      }
-  }
-
-  class JSONArrayResponseListener implements Response.Listener<JSONArray> {
+    private String tag = "Nilesh";
+    private ProgressDialog dialog;
+    private APIResponseListener listener;
+    private boolean showProgress;
 
 
-      private String tag = "";
-      private ProgressDialog dialog;
-      private APIResponseListener listener;
-      private boolean showProgress;
+    public JSONObjectResponseListener(boolean showProgress, ProgressDialog dialog, APIResponseListener listener) {
+        this.showProgress = showProgress;
+        this.dialog = dialog;
+        this.listener = listener;
+    }
 
-      public JSONArrayResponseListener(boolean showProgress, ProgressDialog dialog, APIResponseListener listener){
-          this.showProgress = showProgress;
-          this.dialog = dialog;
-          this.listener = listener;
-      }
+    @Override
+    public void onResponse(JSONObject response) {
+        Log.e(tag, "onResponse: " + response.toString());
+        if (showProgress && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if (response != null)
+            listener.onResponse(response.toString());
+    }
+}
 
-      @Override
-      public void onResponse(JSONArray response) {
-          Log.e("Nilesh", "onResponse: " + response.toString());
-          if (showProgress && dialog.isShowing()) {
-              dialog.dismiss();
-          }
-          listener.onResponse(response.toString());
+class JSONArrayResponseListener implements Response.Listener<JSONArray> {
 
-      }
-  }
+
+    private String tag = "";
+    private ProgressDialog dialog;
+    private APIResponseListener listener;
+    private boolean showProgress;
+
+    public JSONArrayResponseListener(boolean showProgress, ProgressDialog dialog, APIResponseListener listener) {
+        this.showProgress = showProgress;
+        this.dialog = dialog;
+        this.listener = listener;
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
+        Log.e("Nilesh", "onResponse: " + response.toString());
+        if (showProgress && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+            if(response != null)
+            listener.onResponse(response.toString());
+
+    }
+}
 
 
 

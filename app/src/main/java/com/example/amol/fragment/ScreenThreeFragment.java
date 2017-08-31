@@ -21,11 +21,17 @@ import com.example.amol.loanquote.APIResponseListener;
 import com.example.amol.loanquote.AppController;
 import com.example.amol.loanquote.FragmentUtils;
 import com.example.amol.loanquote.R;
+import com.example.amol.util.HelperStatic;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amol13704 on 8/10/2017.
@@ -45,9 +51,7 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
     private EditText editTextEmail;
     private AppCompatSpinner spinnerGender;
     private AppCompatSpinner spinnerMarritalStatus;
-   // private EditText editTextMarritalStatus;
     private EditText editTextNationalInsuranceNumber;
-    //private EditText editTextCustomerCategory;
 
 
     public ScreenThreeFragment() {
@@ -70,8 +74,36 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_screen_three, container, false);
         getUserModel();
         initializeAllViews(view);
+        if(userModel.isQuoteExisting()){
+            fetchApplicantData();
+        }
         addClickListenerToViews();
         return view;
+    }
+
+    private void fetchApplicantData() {
+
+        //http://loanappapi.azurewebsites.net/api/applicant/get?quoteId=2
+        Map<String, String> map = new HashMap<>();
+
+        HelperStatic.jsonObjectRequest(getActivity(), 0, "http://loanappapi.azurewebsites.net/api/applicant/get?quoteId=" + userModel.getQuoteID(),
+                new JSONObject(map), true, new APIResponseListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        handleApplicantData(response);
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, false);
+    }
+
+    private void handleApplicantData(String response) {
+
+
+
     }
 
     private void getUserModel() {
@@ -290,10 +322,32 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-            setUserModelValues();
-            FragmentUtils.getInstance()
-                    .addFragment(ScreenFourFragment.newInstance(),
-                            getActivity().getSupportFragmentManager(), Boolean.TRUE);
+        try {
+        setUserModelValues();
+
+
+        /*Map<String, String> map = new HashMap<>();
+        map.put("loanID", "" + loanType);
+        map.put("loanAmount", userModel.getLoanAmount());
+        map.put("city", userModel.getLocation());
+        map.put("salary", userModel.getMonthlyIncome());
+        map.put("employerName", userModel.getOrganisation());*/
+        Gson gson = new Gson();
+        String object = gson.toJson(userModel);
+
+        JSONObject jsonObject = new JSONObject(object);
+            String url = "";
+            //if(userModel.isQuoteExisting()){
+              //  url = "http://loanappapi.azurewebsites.net/api/applicant/put";
+            //} else {
+                url = "http://loanappapi.azurewebsites.net/api/applicant/post";
+            //}
+
+        HelperStatic.jsonObjectRequest(getActivity(), 1, url, jsonObject, true, this, true);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean validateFields() {
@@ -323,6 +377,9 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResponse(String response) {
 
+        FragmentUtils.getInstance()
+                .addFragment(ScreenFourFragment.newInstance(),
+                        getActivity().getSupportFragmentManager(), Boolean.TRUE);
     }
 
     @Override

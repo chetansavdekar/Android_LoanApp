@@ -383,6 +383,7 @@ public class ScreenThreeFragment extends TabFragment implements View.OnClickList
         map.put("city", userModel.getLocation());
         map.put("salary", userModel.getMonthlyIncome());
         map.put("employerName", userModel.getOrganisation());*/
+        //hello
             Gson gson = new Gson();
 
             String object = gson.toJson(userModel);

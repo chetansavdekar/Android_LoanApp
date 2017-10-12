@@ -142,6 +142,7 @@
                     android:background="#F1F1F1"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:padding="@dimen/detail_row_padding">
 
                     <ImageView
@@ -172,6 +173,7 @@
                     android:background="#F1F1F1"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:padding="@dimen/detail_row_padding">
 
                     <ImageView

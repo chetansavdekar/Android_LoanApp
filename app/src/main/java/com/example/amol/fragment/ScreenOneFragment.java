@@ -38,8 +38,8 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
 
     private Button btnGetQuote;
     private EditText editTextExistingQuote;
-    private EditText editTextFullName;
-    private EditText editTextContactNumber;
+    private EditText editTextFullName;//
+    private EditText editTextContactNumber;//
     private EditText editTextLocation;
     private EditText editTextOrganizationBuilding;
     private EditText editTextPound;
@@ -161,6 +161,7 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
                 if (userModel == null)
                     userModel = new UserModel();
                 userModel.setQuoteID(resp.getInt("quoteID"));
+                //userModel.setApplicantID(resp.getInt("applicantID"));
                 userModel.setLoanType(resp.getInt("loanID"));
                 userModel.setInterestRate(resp.getDouble("interestRate"));
                 userModel.setMonthlyEMI(resp.getDouble("monthlyEMI"));
@@ -173,6 +174,8 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
                 editTextOrganizationBuilding.setText("" + resp.getString("employerName"));
                 editTextPound.setText("" + resp.getLong("salary"));
                 editTextLocation.setText(resp.getString("city"));
+                userModel.getApplicantEmployers().add(new UserEmployerModel());
+                userModel.getApplicantAddresses().add(new UserAddressModel());
                 AppController.getInstance().setUserModel(userModel);
                 FragmentUtils.getInstance()
                         .addFragment(screenTwoFragment,
@@ -235,19 +238,19 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
         if(!TextUtils.isEmpty(editTextFullName.getText()))
             userModel.setFullName(editTextFullName.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFullName.getText()))
+        if(!TextUtils.isEmpty(editTextContactNumber.getText()))
             userModel.setMobile(editTextContactNumber.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFullName.getText()))
+        if(!TextUtils.isEmpty(editTextLocation.getText()))
             userModel.setLocation(editTextLocation.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFullName.getText()))
+        if(!TextUtils.isEmpty(editTextOrganizationBuilding.getText()))
             userModel.setOrganisation(editTextOrganizationBuilding.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFullName.getText()))
+        if(!TextUtils.isEmpty(editTextPound.getText()))
             userModel.setMonthlyIncome(editTextPound.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFullName.getText()))
+        if(!TextUtils.isEmpty(editTextLoan.getText()))
             userModel.setLoanAmount(editTextLoan.getText().toString());
 
         setUserModel(userModel);
@@ -262,7 +265,6 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
 
        // [{"quoteID":86,"loanID":2,"loanAmount":350000,"interestRate":3.2,"monthlyEMI":6766.67,"employerName":"HDFC","salary":3500,"city":"London"}]
         UserModel userModel = getUserModel();
-
         Map<String, String> map = new HashMap<>();
         map.put("loanID", "" + loanType);
         map.put("loanAmount", userModel.getLoanAmount());
@@ -288,6 +290,8 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
                 userModel.setInterestRate(resp.getDouble("interestRate"));
                 userModel.setMonthlyEMI(resp.getDouble("monthlyEMI"));
                 userModel.setQuoteExisting(false);
+                userModel.getApplicantEmployers().add(new UserEmployerModel());
+                userModel.getApplicantAddresses().add(new UserAddressModel());
                 AppController.getInstance().setUserModel(userModel);
                 FragmentUtils.getInstance()
                         .addFragment(screenTwoFragment,
@@ -313,6 +317,7 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
+                        dialog.dismiss();
                     }
                 })
                 .show();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.amol.loanquote.APIResponseListener;
 import com.example.amol.loanquote.AppController;
 import com.example.amol.loanquote.FragmentUtils;
@@ -32,7 +35,7 @@ import java.util.List;
  * Created by amol13704 on 8/10/2017.
  */
 
-public class ScreenFourFragment extends Fragment implements View.OnClickListener, APIResponseListener {
+public class ScreenFourFragment extends TabFragment implements View.OnClickListener, APIResponseListener {
 
     private UserModel userModel;
     private Button btnNext;
@@ -120,10 +123,31 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
         //editTextCountry = view.findViewById(R.id.edt_txt_screen_four_country);
         editTextPhone = view.findViewById(R.id.edt_txt_screen_four_phone);
         spinnerRegion = view.findViewById(R.id.spinner_screen_four_region);
-        UserAddressModel model = new UserAddressModel();
-        List<UserAddressModel> list = new ArrayList<UserAddressModel>();
-        list.add(model);
-        userModel.setApplicantAddresses(list);
+        txtInfoHeader = view.findViewById(R.id.txt_screen_four_info_header);
+        txtAddressHeader = view.findViewById(R.id.txt_screen_four_address_header);
+        txtEmployerHeader = view.findViewById(R.id.txt_screen_four_employer_header);
+        setOnClickListenerToTab();
+        currentTab = ADDRESS_TAB;
+        //UserAddressModel model = new UserAddressModel();
+        //List<UserAddressModel> list = new ArrayList<UserAddressModel>();
+        //list.add(model);
+        //userModel.setApplicantAddresses(list);
+
+        UserAddressModel userAddressModel = userModel.getApplicantAddresses().get(0);
+        if(!TextUtils.isEmpty(userAddressModel.getAddress1()))
+        editTextAddress1.setText(userAddressModel.getAddress1());
+
+        if(!TextUtils.isEmpty(userAddressModel.getAddress2()))
+        editTextAddress2.setText(userAddressModel.getAddress2());
+
+        if(!TextUtils.isEmpty(userAddressModel.getCity()))
+        editTextCity.setText(userAddressModel.getCity());
+
+        if(!TextUtils.isEmpty(userAddressModel.getPincode()))
+        editTextPincode.setText(userAddressModel.getPincode());
+
+        if(!TextUtils.isEmpty(userAddressModel.getPhone()))
+        editTextPhone.setText(userAddressModel.getPhone());
 
         setAdapterToSpinnerForRegion();
     }
@@ -169,11 +193,20 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
         super.onDetach();
     }
 
+    private Fragment switchToFragment;
     @Override
     public void onClick(View view) {
         //if(validateFields()) {
 
         //}
+        if(view.getId() == R.id.btn_screen_four_next){
+            switchToFragment = ScreenFiveFragment.newInstance();
+        } else if(view.getId() == R.id.txt_screen_four_info_header){
+            userModel.setQuoteExisting(true);
+            switchToFragment = ScreenThreeFragment.newInstance();
+        } else if(view.getId() == R.id.txt_screen_four_employer_header){
+            switchToFragment = ScreenFiveFragment.newInstance();
+        }
 
 
         try {
@@ -187,17 +220,19 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
         map.put("salary", userModel.getMonthlyIncome());
         map.put("employerName", userModel.getOrganisation());*/
             Gson gson = new Gson();
+
             String object = gson.toJson(userModel);
 
             JSONObject jsonObject = new JSONObject(object);
             String url = "";
-           // if(userModel.isQuoteExisting()){
-            //    url = "http://loanappapi.azurewebsites.net/api/applicant/put";
-           // } else {
-                url = "http://loanappapi.azurewebsites.net/api/applicant/post";
-            //}
+            //if(userModel.isQuoteExisting()){
+                url = "http://loanappapi.azurewebsites.net/api/applicant/put";
+           //} else {
+             //   url = "http://loanappapi.azurewebsites.net/api/applicant/post";
+           // }
 
-            HelperStatic.jsonObjectRequest(getActivity(), 1, url, jsonObject, true, this, true);
+
+            HelperStatic.jsonObjectRequest(getActivity(), JsonObjectRequest.Method.PUT, url, jsonObject, true, this, true);
 
 
         } catch (JSONException e) {
@@ -231,13 +266,22 @@ public class ScreenFourFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onResponse(String response) {
-        FragmentUtils.getInstance()
-                .addFragment(ScreenFiveFragment.newInstance(),
-                        getActivity().getSupportFragmentManager(), Boolean.TRUE);
+
+        changeFragment();
     }
 
+    public void changeFragment(){
+        FragmentUtils.getInstance()
+                .addFragment(switchToFragment,
+                        getActivity().getSupportFragmentManager(), Boolean.FALSE);
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
+        Log.d("Nilesh", " error = " + error.toString());
+}
 
+    @Override
+    public void switchTab(View view) {
+        onClick(view);
     }
 }

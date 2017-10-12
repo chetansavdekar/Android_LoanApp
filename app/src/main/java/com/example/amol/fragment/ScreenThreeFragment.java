@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.amol.loanquote.APIResponseListener;
 import com.example.amol.loanquote.AppController;
 import com.example.amol.loanquote.FragmentUtils;
@@ -24,6 +27,7 @@ import com.example.amol.loanquote.R;
 import com.example.amol.util.HelperStatic;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,8 +41,7 @@ import java.util.Map;
  * Created by amol13704 on 8/10/2017.
  */
 
-public class ScreenThreeFragment extends Fragment implements View.OnClickListener, APIResponseListener {
-
+public class ScreenThreeFragment extends TabFragment implements View.OnClickListener, APIResponseListener {
 
     private UserModel userModel;
     private Button btnNext;
@@ -74,7 +77,7 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_screen_three, container, false);
         getUserModel();
         initializeAllViews(view);
-        if(userModel.isQuoteExisting()){
+        if (userModel.isQuoteExisting()) {
             fetchApplicantData();
         }
         addClickListenerToViews();
@@ -102,6 +105,36 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     private void handleApplicantData(String response) {
 
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            Gson gson = new Gson();
+            UserModel userModelFromServer = gson.fromJson(jsonObject.toString(), UserModel.class);
+            if (!TextUtils.isEmpty(userModelFromServer.getDob()))
+                editTextDOB.setText(userModelFromServer.getDob());
+
+            if (!TextUtils.isEmpty(userModelFromServer.getMobile()))
+                editTextMobileNumber.setText(userModelFromServer.getMobile());
+
+            if (!TextUtils.isEmpty(userModelFromServer.getFirstName()))
+                editTextFirstName.setText(userModelFromServer.getFirstName());
+
+            if (!TextUtils.isEmpty(userModelFromServer.getLastName()))
+                editTextLastName.setText(userModelFromServer.getLastName());
+
+            if (!TextUtils.isEmpty(userModelFromServer.getEmail()))
+                editTextEmail.setText(userModelFromServer.getEmail());
+
+            if (!TextUtils.isEmpty(userModelFromServer.getNationalInsuranceNumber()))
+                editTextNationalInsuranceNumber.setText(userModelFromServer.getNationalInsuranceNumber());
+
+            userModelFromServer.setQuoteExisting(userModel.isQuoteExisting());
+            userModel = userModelFromServer;
+            AppController.getInstance().setUserModel(userModel);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -112,29 +145,29 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     private void setUserModelValues() {
 
-        if(!TextUtils.isEmpty(editTextDOB.getText().toString()))
-        userModel.setDob(editTextDOB.getText().toString());
+        if (!TextUtils.isEmpty(editTextDOB.getText().toString()))
+            userModel.setDob(editTextDOB.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextMobileNumber.getText()))
-        userModel.setMobile(editTextMobileNumber.getText().toString());
+        if (!TextUtils.isEmpty(editTextMobileNumber.getText()))
+            userModel.setMobile(editTextMobileNumber.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextFirstName.getText()))
-        userModel.setFirstName(editTextFirstName.getText().toString());
+        if (!TextUtils.isEmpty(editTextFirstName.getText()))
+            userModel.setFirstName(editTextFirstName.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextLastName.getText()))
-        userModel.setLastName(editTextLastName.getText().toString());
+        if (!TextUtils.isEmpty(editTextLastName.getText()))
+            userModel.setLastName(editTextLastName.getText().toString());
 
 
-        userModel.setApplicantID(0);
-       // int noOfdep = Integer.parseInt(spinnerNoOfDependents.getSelectedItem().toString());
-        if(!TextUtils.isEmpty(editTextEmail.getText()))
-        userModel.setEmail(editTextEmail.getText().toString());
+        //userModel.setApplicantID(0);
+        // int noOfdep = Integer.parseInt(spinnerNoOfDependents.getSelectedItem().toString());
+        if (!TextUtils.isEmpty(editTextEmail.getText()))
+            userModel.setEmail(editTextEmail.getText().toString());
 
-       // if(!TextUtils.isEmpty(editTextMarritalStatus.getText()))
+        // if(!TextUtils.isEmpty(editTextMarritalStatus.getText()))
         //userModel.setMaritialStatus(editTextMarritalStatus.getText().toString());
 
-        if(!TextUtils.isEmpty(editTextNationalInsuranceNumber.getText()))
-        userModel.setNationalInsuranceNumber(editTextNationalInsuranceNumber.getText().toString());
+        if (!TextUtils.isEmpty(editTextNationalInsuranceNumber.getText()))
+            userModel.setNationalInsuranceNumber(editTextNationalInsuranceNumber.getText().toString());
 
         //if(!TextUtils.isEmpty(editTextCustomerCategory.getText()))
         //userModel.setCustomerCategory(editTextCustomerCategory.getText().toString());
@@ -157,21 +190,27 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
         editTextNationalInsuranceNumber = view.findViewById(R.id.edt_txt_screen_three_national_insurance_number);
         //editTextCustomerCategory = view.findViewById(R.id.edt_txt_screen_three_customer_category);
         spinnerPurposeOfLoan = view.findViewById(R.id.spinner_screen_three_purpose_of_loan);
+        txtInfoHeader = view.findViewById(R.id.txt_screen_three_info_header);
+        txtAddressHeader = view.findViewById(R.id.txt_screen_three_adreess_header);
+        txtEmployerHeader = view.findViewById(R.id.txt_screen_three_employer_header);
+        setOnClickListenerToTab();
+        currentTab = INFO_TAB;
         editTextDOB.setFocusable(Boolean.FALSE);
+
         editTextDOB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // if(b){
-                    Calendar calendar = Calendar.getInstance();
-                    DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                            String date = datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear();
-                            editTextDOB.setText(date);
-                            userModel.setDob(date);
-                        }
-                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                    dialog.show();
+                // if(b){
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String date = datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear();
+                        editTextDOB.setText(date);
+                        userModel.setDob(date);
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
                 //}
             }
         });
@@ -222,7 +261,8 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
         userModel.setPurposeOfLoan("Buying a car/Vehical");
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapterPurposeOfLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPurposeOfLoan);
+        ArrayAdapter<String> dataAdapterPurposeOfLoan =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPurposeOfLoan);
 
         // Drop down layout style - list view with radio button
         dataAdapterPurposeOfLoan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -246,13 +286,13 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     private void setAdapterToSpinnerForGender() {
         List<String> listGender = new ArrayList<String>();
-
         listGender.add("Male");
         listGender.add("Female");
-        userModel.setGender("Male");
+        userModel.setGender("M");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapterGender = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listGender);
+        ArrayAdapter<String> dataAdapterGender
+                = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listGender);
 
         // Drop down layout style - list view with radio button
         dataAdapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -263,7 +303,7 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                userModel.setGender(parent.getItemAtPosition(position).toString());
+                userModel.setGender(parent.getItemAtPosition(position).toString().charAt(0) + "");
             }
 
             @Override
@@ -275,20 +315,20 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
     }
 
 
-
-    private void setAdapterToSpinnerForDependents(){
+    private void setAdapterToSpinnerForDependents() {
 
 
         List<String> listNoOfDependents = new ArrayList<String>();
 
-        listNoOfDependents.add(""+1);
-        listNoOfDependents.add(""+2);
-        listNoOfDependents.add(""+3);
-        listNoOfDependents.add(""+4);
+        listNoOfDependents.add("" + 1);
+        listNoOfDependents.add("" + 2);
+        listNoOfDependents.add("" + 3);
+        listNoOfDependents.add("" + 4);
         userModel.setDependents(1);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapterDependents = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listNoOfDependents);
+        ArrayAdapter<String> dataAdapterDependents
+                = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listNoOfDependents);
 
         // Drop down layout style - list view with radio button
         dataAdapterDependents.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -320,10 +360,21 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
         super.onDetach();
     }
 
+    private Fragment switchToFragment;
+
     @Override
     public void onClick(View view) {
+
+        if(view.getId() == R.id.btn_screen_three_next){
+            switchToFragment = ScreenFourFragment.newInstance();
+        } else if(view.getId() == R.id.txt_screen_three_adreess_header){
+            switchToFragment = ScreenFourFragment.newInstance();
+        } else if(view.getId() == R.id.txt_screen_three_employer_header){
+            switchToFragment = ScreenFiveFragment.newInstance();
+        }
+
         try {
-        setUserModelValues();
+            setUserModelValues();
 
 
         /*Map<String, String> map = new HashMap<>();
@@ -332,18 +383,23 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
         map.put("city", userModel.getLocation());
         map.put("salary", userModel.getMonthlyIncome());
         map.put("employerName", userModel.getOrganisation());*/
-        Gson gson = new Gson();
-        String object = gson.toJson(userModel);
+            Gson gson = new Gson();
 
-        JSONObject jsonObject = new JSONObject(object);
+            String object = gson.toJson(userModel);
+
+            JSONObject jsonObject = new JSONObject(object);
             String url = "";
-            //if(userModel.isQuoteExisting()){
-              //  url = "http://loanappapi.azurewebsites.net/api/applicant/put";
-            //} else {
+            int method;
+            int applicantID = userModel.getApplicantID();
+            if (applicantID > 0) {
+                url = "http://loanappapi.azurewebsites.net/api/applicant/put";
+                method = JsonObjectRequest.Method.PUT;
+            } else {
                 url = "http://loanappapi.azurewebsites.net/api/applicant/post";
-            //}
+                method = JsonObjectRequest.Method.POST;
+            }
 
-        HelperStatic.jsonObjectRequest(getActivity(), 1, url, jsonObject, true, this, true);
+            HelperStatic.jsonObjectRequest(getActivity(), method, url, jsonObject, true, this, true);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -352,19 +408,19 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     private boolean validateFields() {
         boolean isValid = false;
-        if(TextUtils.isEmpty(editTextFirstName.getText())) {
+        if (TextUtils.isEmpty(editTextFirstName.getText())) {
             Toast.makeText(getContext(), "Please enter First Name", Toast.LENGTH_LONG).show();
-        } else if(TextUtils.isEmpty(editTextLastName.getText())){
+        } else if (TextUtils.isEmpty(editTextLastName.getText())) {
             Toast.makeText(getContext(), "Please enter Last Name", Toast.LENGTH_LONG).show();
-        } else if(TextUtils.isEmpty(editTextMobileNumber.getText())){
+        } else if (TextUtils.isEmpty(editTextMobileNumber.getText())) {
             Toast.makeText(getContext(), "Please enter Mobile Number", Toast.LENGTH_LONG).show();
-        } else if(TextUtils.isEmpty(editTextEmail.getText())){
+        } else if (TextUtils.isEmpty(editTextEmail.getText())) {
             Toast.makeText(getContext(), "Please enter email", Toast.LENGTH_LONG).show();
         } /*else if(TextUtils.isEmpty(editTextDOB.getText())){
             Toast.makeText(getContext(), "Please enter date of birth", Toast.LENGTH_LONG).show();
         }*/ /*else if(TextUtils.isEmpty(editTextMarritalStatus.getText())){
             Toast.makeText(getContext(), "Please enter your marrital status", Toast.LENGTH_LONG).show();
-        }*/ else if(TextUtils.isEmpty(editTextNationalInsuranceNumber.getText())){
+        }*/ else if (TextUtils.isEmpty(editTextNationalInsuranceNumber.getText())) {
             Toast.makeText(getContext(), "Please enter your National Insurance Number", Toast.LENGTH_LONG).show();
         } /*else if(TextUtils.isEmpty(editTextCustomerCategory.getText())){
             Toast.makeText(getContext(), "Please enter customer catrgory", Toast.LENGTH_LONG).show();
@@ -376,14 +432,30 @@ public class ScreenThreeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onResponse(String response) {
+        try {
+            JSONObject object = new JSONObject(response);
+            int applicantId = object.getInt("applicantID");
+            AppController.getInstance().getUserModel().setApplicantID(applicantId);
+            changeFragment();
+            //switchTab(ScreenFourFragment.newInstance());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void changeFragment(){
         FragmentUtils.getInstance()
-                .addFragment(ScreenFourFragment.newInstance(),
-                        getActivity().getSupportFragmentManager(), Boolean.TRUE);
+                .addFragment(switchToFragment,
+                        getActivity().getSupportFragmentManager(), Boolean.FALSE);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        Log.d("Nilesh", " error = " + error.toString());
+    }
 
+    @Override
+    public void switchTab(View view) {
+       onClick(view);
     }
 }

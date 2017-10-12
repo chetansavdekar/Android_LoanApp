@@ -25,6 +25,7 @@
                 android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/txt_screen_three_info_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -36,6 +37,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txt_screen_three_adreess_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -46,6 +48,7 @@
                      />
 
                 <TextView
+                    android:id="@+id/txt_screen_three_employer_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"

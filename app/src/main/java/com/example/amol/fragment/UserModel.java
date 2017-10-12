@@ -1,6 +1,7 @@
 package com.example.amol.fragment;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,14 @@ public class UserModel extends BaseModel implements Serializable {
     private double interestRate = 0.0;
     private double monthlyEMI = 0.0;
 
+    private boolean isQuoteExisting = false;
+
+    private List<UserAddressModel> applicantAddresses
+            = new ArrayList<UserAddressModel>();
+    private List<UserEmployerModel> applicantEmployers
+            = new ArrayList<UserEmployerModel>();
+
+
     public boolean isQuoteExisting() {
         return isQuoteExisting;
     }
@@ -42,13 +51,6 @@ public class UserModel extends BaseModel implements Serializable {
     public void setQuoteExisting(boolean quoteExisting) {
         isQuoteExisting = quoteExisting;
     }
-
-    private boolean isQuoteExisting = false;
-
-
-    private List<UserAddressModel> applicantAddresses;
-    private List<UserEmployerModel> applicantEmployers;
-
 
     public String getFirstName() {
         return firstName;
@@ -81,7 +83,6 @@ public class UserModel extends BaseModel implements Serializable {
     public void setLoanType(int loanType) {
         this.loanType = loanType;
     }
-
 
     public double getInterestRate() {
         return interestRate;

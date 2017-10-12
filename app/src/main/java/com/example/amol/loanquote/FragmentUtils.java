@@ -105,7 +105,7 @@ public class FragmentUtils {
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .add(R.id.contentFrame, fragment, fragment.getClass().getSimpleName())
+                    .replace(R.id.contentFrame, fragment, fragment.getClass().getSimpleName())
                     // Add this transaction to the back stack
                     .commit();
         }

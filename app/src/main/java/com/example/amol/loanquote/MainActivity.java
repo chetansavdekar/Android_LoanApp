@@ -1,14 +1,16 @@
 package com.example.amol.loanquote;
 
-import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
+import com.example.amol.fragment.ScreenFiveFragment;
+import com.example.amol.fragment.ScreenFourFragment;
 import com.example.amol.fragment.ScreenOneFragment;
+import com.example.amol.fragment.ScreenThreeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +36,20 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager(), Boolean.FALSE);
     }
 
+    @Override
+    public void onBackPressed() {
+
+
+        Fragment visibleFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+
+        if(visibleFragment instanceof ScreenThreeFragment
+                || visibleFragment instanceof ScreenFourFragment
+                || visibleFragment instanceof ScreenFiveFragment){
+            getSupportFragmentManager().beginTransaction().remove(visibleFragment).commit();
+        }
+        super.onBackPressed();
+    }
 }
 
 

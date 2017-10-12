@@ -25,6 +25,7 @@
                 android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/txt_screen_four_info_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -35,6 +36,7 @@
                     android:text="Info" />
 
                 <TextView
+                    android:id="@+id/txt_screen_four_address_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -45,6 +47,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txt_screen_four_employer_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"

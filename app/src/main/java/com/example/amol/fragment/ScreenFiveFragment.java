@@ -18,9 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.amol.loanquote.APIResponseListener;
 import com.example.amol.loanquote.AppController;
+import com.example.amol.loanquote.FragmentUtils;
 import com.example.amol.loanquote.R;
 import com.example.amol.util.HelperStatic;
 import com.google.gson.Gson;
@@ -37,7 +40,7 @@ import java.util.Map;
  * Created by amol13704 on 8/10/2017.
  */
 
-public class ScreenFiveFragment extends Fragment implements View.OnClickListener, APIResponseListener {
+public class ScreenFiveFragment extends TabFragment implements View.OnClickListener, APIResponseListener {
 
 
     private UserModel userModel;
@@ -157,13 +160,48 @@ public class ScreenFiveFragment extends Fragment implements View.OnClickListener
         editTextEmployerPhone = view.findViewById(R.id.edt_txt_screen_five_employer_phone);
         editTextEmployerDesignation = view.findViewById(R.id.edt_txt_screen_five_employer_designation);
         editTextEmployerSalary = view.findViewById(R.id.edt_txt_screen_five_employer_salary);
+        txtInfoHeader = view.findViewById(R.id.txt_screen_five_info_header);
+        txtAddressHeader = view.findViewById(R.id.txt_screen_five_address_header);
+        txtEmployerHeader = view.findViewById(R.id.txt_screen_five_employer_header);
         spinnerRegion = view.findViewById(R.id.spinner_screen_five_region);
         spinnerTenureWithEmployer = view.findViewById(R.id.spinner_screen_five_tenure);
+        setOnClickListenerToTab();
+        currentTab = EMPLOYER_TAB;
 
-        UserEmployerModel model = new UserEmployerModel();
-        List<UserEmployerModel> list = new ArrayList<UserEmployerModel>();
-        list.add(model);
-        userModel.setApplicantEmployers(list);
+        //UserEmployerModel model = new UserEmployerModel();
+       // List<UserEmployerModel> list = new ArrayList<UserEmployerModel>();
+        //list.add(model);
+        //userModel.setApplicantEmployers(list);
+
+        UserEmployerModel userEmployerModel = userModel.getApplicantEmployers().get(0);
+
+        if(!TextUtils.isEmpty(userEmployerModel.getEmployerName()))
+        editTextEmployerName.setText(userEmployerModel.getEmployerName());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getAddress1()))
+        editTextEmployerAddress1.setText(userEmployerModel.getAddress1());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getAddress2()))
+        editTextEmployerAddress2.setText(userEmployerModel.getAddress2());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getCity()))
+        editTextEmployerCity.setText(userEmployerModel.getCity());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getPincode()))
+        editTextEmployerPincode.setText(userEmployerModel.getPincode());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getPhone()))
+        editTextEmployerPhone.setText(userEmployerModel.getPhone());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getDesignation()))
+        editTextEmployerDesignation.setText(userEmployerModel.getDesignation());
+
+        if(!TextUtils.isEmpty(userEmployerModel.getSalary() + ""))
+        editTextEmployerSalary.setText(userEmployerModel.getSalary() + "");
+
+
+
+
         setAdapterToSpinnerForRegion();
         setAdapterToSpinnerForTenure();
     }
@@ -237,14 +275,14 @@ public class ScreenFiveFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         //call final API
-        //if(validateFields()) {
+        //if(validateFields()) { http://loanappapi.azurewebsites.net/api/loanapplication/post
         setUserModelValues();
             try {
                 Gson gson = new Gson();
                 String object = gson.toJson(userModel);
                 Log.d("JSON", " " + object);
 
-                HelperStatic.jsonObjectRequest(getActivity(), 1,
+                HelperStatic.jsonObjectRequest(getActivity(), JsonObjectRequest.Method.POST,
                         "http://loanappapi.azurewebsites.net/api/loanapplication/post", new JSONObject(object), true, this, true);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -302,4 +340,17 @@ public class ScreenFiveFragment extends Fragment implements View.OnClickListener
 
     }
 
+    @Override
+    public void switchTab(View view) {
+        Fragment switchToFragment = null;
+        if(view.getId() == R.id.txt_screen_five_info_header){
+            userModel.setQuoteExisting(true);
+            switchToFragment = ScreenThreeFragment.newInstance();
+        } else if(view.getId() == R.id.txt_screen_five_address_header){
+            switchToFragment = ScreenFourFragment.newInstance();
+        }
+        FragmentUtils.getInstance()
+                .addFragment(switchToFragment,
+                        getActivity().getSupportFragmentManager(), Boolean.FALSE);
+    }
 }

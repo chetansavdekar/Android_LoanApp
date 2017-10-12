@@ -66,6 +66,7 @@ public class ScreenTwoFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showDialog = getArguments().getBoolean("showDialog");
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ScreenTwoFragment extends Fragment implements View.OnClickListener,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_screen_two, container, false);
-        showDialog = getArguments().getBoolean("showDialog");
+
         initializeAllViews(view);
         addClickListenerToViews();
         if (showDialog)
@@ -93,7 +94,8 @@ public class ScreenTwoFragment extends Fragment implements View.OnClickListener,
         builder.setMessage("Your Quote is " + userModel.getQuoteID())
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
+                        showDialog = false;
+                        dialog.dismiss();
                     }
                 })
                 .show();

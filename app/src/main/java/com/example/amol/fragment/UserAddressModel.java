@@ -3,7 +3,7 @@ package com.example.amol.fragment;
 import java.io.Serializable;
 
 /**
- * Created by amol13704 on 8/10/2017.
+ * Created by amol13704 on 8/10/2017. //commit
  */
 
 class UserAddressModel extends BaseModel implements Serializable {

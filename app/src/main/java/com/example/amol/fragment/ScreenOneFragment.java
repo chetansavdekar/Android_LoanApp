@@ -52,7 +52,7 @@ public class ScreenOneFragment extends Fragment implements View.OnClickListener,
     private UserModel userModel;
 
     public ScreenOneFragment() {
-        // Required empty public constructor
+        // Required empty public constructor //commit
     }
 
     public static ScreenOneFragment newInstance() {

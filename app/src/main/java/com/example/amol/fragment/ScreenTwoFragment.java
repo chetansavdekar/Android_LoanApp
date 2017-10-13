@@ -20,7 +20,7 @@ import com.example.amol.loanquote.FragmentUtils;
 import com.example.amol.loanquote.R;
 
 /**
- * Created by amol13704 on 8/10/2017.
+ * Created by amol13704 on 8/10/2017. //commit
  */
 
 public class ScreenTwoFragment extends Fragment implements View.OnClickListener, APIResponseListener, SeekBar.OnSeekBarChangeListener {

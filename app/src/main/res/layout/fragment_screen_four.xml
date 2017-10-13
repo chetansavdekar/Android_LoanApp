@@ -78,7 +78,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="@dimen/detail_row_padding">
-
+//commit
 
                     <EditText
                         android:id="@+id/edt_txt_screen_four_address_type"

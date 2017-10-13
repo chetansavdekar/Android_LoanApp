@@ -274,7 +274,6 @@
                     android:padding="@dimen/edttxt_padding"
                     android:text="CONTINUE" />
 
-
             </LinearLayout>
 
             <TextView

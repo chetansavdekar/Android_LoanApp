@@ -60,7 +60,7 @@ public class FragmentUtils {
     /*public void addFragment(Fragment fragment, FragmentManager fragmentManager,
                             boolean backStack) {
         if (fragment == null) {
-            return;
+            return; //commit
         }
 
         String name = fragment.getClass().getSimpleName();

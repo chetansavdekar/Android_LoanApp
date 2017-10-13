@@ -159,7 +159,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/edttxt_margin_left"
                         android:inputType="textPersonName"
-
                         android:background="@drawable/drawable_rectangle"
                         android:hint="FULL NAME"
                         android:padding="@dimen/edttxt_padding" />

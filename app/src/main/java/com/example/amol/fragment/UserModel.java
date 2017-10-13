@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by amol13704 on 8/8/2017.
+ * Created by amol13704 on 8/8/2017. //commit
  */
 
 public class UserModel extends BaseModel implements Serializable {

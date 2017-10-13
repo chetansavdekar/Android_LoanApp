@@ -365,7 +365,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/padding_15"
                 android:text="copyrights reserved"
-                android:textColor="#E9E9E9" />
+                android:textColor="#E9E9E9"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

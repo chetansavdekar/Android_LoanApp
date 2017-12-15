@@ -389,6 +389,23 @@ public class ScreenThreeFragment extends TabFragment implements View.OnClickList
             String object = gson.toJson(userModel);
 
             JSONObject jsonObject = new JSONObject(object);
+
+
+            /////// remove Applicant ID from applicant address and employer as told by chetan
+            JSONObject addressJsonObject = jsonObject.getJSONArray("applicantAddresses")
+                    .getJSONObject(0);
+            if(addressJsonObject.has("applicantID")) {
+                addressJsonObject.remove("applicantID");
+            }
+
+            JSONObject employerJsonObject = jsonObject.getJSONArray("applicantEmployers")
+                    .getJSONObject(0);
+            if(employerJsonObject.has("applicantID")) {
+                employerJsonObject.remove("applicantID");
+            }
+
+
+
             String url = "";
             int method;
             int applicantID = userModel.getApplicantID();
@@ -396,6 +413,9 @@ public class ScreenThreeFragment extends TabFragment implements View.OnClickList
                 url = "http://loanappapi.azurewebsites.net/api/applicant/put";
                 method = JsonObjectRequest.Method.PUT;
             } else {
+                if(jsonObject.has("applicantID")){
+                    jsonObject.remove("applicantID");
+                }
                 url = "http://loanappapi.azurewebsites.net/api/applicant/post";
                 method = JsonObjectRequest.Method.POST;
             }

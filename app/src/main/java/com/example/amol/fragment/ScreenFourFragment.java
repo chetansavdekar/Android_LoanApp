@@ -80,7 +80,7 @@ public class ScreenFourFragment extends TabFragment implements View.OnClickListe
     }
 
     private void setUserModelValues() {
-        UserAddressModel model =   userModel.getApplicantAddresses().get(0);
+        UserAddressModel model = userModel.getApplicantAddresses().get(0);
 
         if(!TextUtils.isEmpty(editTextAddress1.getText()))
         model.setAddress1(editTextAddress1.getText().toString());
@@ -88,7 +88,7 @@ public class ScreenFourFragment extends TabFragment implements View.OnClickListe
         if(!TextUtils.isEmpty(editTextAddress2.getText()))
         model.setAddress2(editTextAddress2.getText().toString());
 
-        model.setAddressID(0);
+        //model.setAddressID(0);
 
         //if(!TextUtils.isEmpty(editTextAddressType.getText()))
         //model.setAddressType(editTextAddressType.getText().toString());
@@ -224,6 +224,20 @@ public class ScreenFourFragment extends TabFragment implements View.OnClickListe
             String object = gson.toJson(userModel);
 
             JSONObject jsonObject = new JSONObject(object);
+
+            // remove Applicant ID from applicant address and employer as told by chetan
+            JSONObject addressJsonObject = jsonObject.getJSONArray("applicantAddresses")
+                    .getJSONObject(0);
+            if(addressJsonObject.has("applicantID")) {
+                addressJsonObject.remove("applicantID");
+            }
+
+            JSONObject employerJsonObject = jsonObject.getJSONArray("applicantEmployers")
+                    .getJSONObject(0);
+            if(employerJsonObject.has("applicantID")) {
+                employerJsonObject.remove("applicantID");
+            }
+
             String url = "";
             //if(userModel.isQuoteExisting()){
                 url = "http://loanappapi.azurewebsites.net/api/applicant/put";

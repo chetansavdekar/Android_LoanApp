@@ -26,7 +26,7 @@ class UserAddressModel extends BaseModel implements Serializable {
 
     private String region = "";
 
-    public int getAddressID() {
+   public int getAddressID() {
         return addressID;
     }
 

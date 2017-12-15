@@ -282,8 +282,23 @@ public class ScreenFiveFragment extends TabFragment implements View.OnClickListe
                 String object = gson.toJson(userModel);
                 Log.d("JSON", " " + object);
 
+                JSONObject jsonObject = new JSONObject(object);
+
+                /////// remove Applicant ID from applicant address and employer as told by chetan
+                JSONObject addressJsonObject = jsonObject.getJSONArray("applicantAddresses")
+                        .getJSONObject(0);
+                if(addressJsonObject.has("applicantID")) {
+                    addressJsonObject.remove("applicantID");
+                }
+
+                JSONObject employerJsonObject = jsonObject.getJSONArray("applicantEmployers")
+                        .getJSONObject(0);
+                if(employerJsonObject.has("applicantID")) {
+                    employerJsonObject.remove("applicantID");
+                }
+
                 HelperStatic.jsonObjectRequest(getActivity(), JsonObjectRequest.Method.POST,
-                        "http://loanappapi.azurewebsites.net/api/loanapplication/post", new JSONObject(object), true, this, true);
+                        "http://loanappapi.azurewebsites.net/api/loanapplication/post", jsonObject, true, this, true);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
